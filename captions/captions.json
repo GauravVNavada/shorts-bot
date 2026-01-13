@@ -1,0 +1,17 @@
+[
+  {
+    "text": "WAIT, there is no way you do not know why we do not fall off the Earth.",
+    "intent": "emphasis",
+    "energy": "high"
+  },
+  {
+    "text": "Is it a skill issue?",
+    "intent": "normal",
+    "energy": "medium"
+  },
+  {
+    "text": "No, it is just gravity, and it is actually cracked.",
+    "intent": "normal",
+    "energy": "medium"
+  }
+]

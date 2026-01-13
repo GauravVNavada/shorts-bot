@@ -1,0 +1,332 @@
+{
+  "idea_001": {
+    "status": "rendered",
+    "variants_enabled": false,
+    "youtube": {
+      "title": "Why You Don\u2019t Fall Off the Earth \ud83c\udf0d",
+      "description": "Ever wondered why humans don\u2019t fall off the Earth? This brainrot-style breakdown explains gravity in the most insane way possible. #shorts #science #gravity",
+      "tags": [
+        "shorts",
+        "gravity",
+        "science",
+        "brainrot",
+        "physics"
+      ],
+      "category": "Education"
+    },
+    "script": {
+      "hook": "WAIT, there is no way you do not know why we do not fall off the Earth.",
+      "beat": "Is it a skill issue?",
+      "lore": "No, it is just gravity, and it is actually cracked. Earth has so much aura that it literally bends space to keep you on the ground.",
+      "cta": "Subscribe now or get sent to space forever. Stay sigma."
+    },
+    "captions": {
+      "style": "classic",
+      "max_words": 3,
+      "max_chars": 18,
+      "highlight_emphasis": true
+    },
+    "audio": {
+      "music": {
+        "track": "assets/music/bg_loop_01.MP3",
+        "volume": -10,
+        "fade_in": 0.5,
+        "fade_out": 0.5,
+        "duck_under_voice": true
+      },
+      "sfx": [
+        {
+          "file": "assets/sfx/minecraft_damage.mp3",
+          "at_word": "wait",
+          "offset": 0,
+          "volume": 10
+        },
+        {
+          "file": "assets/sfx/riser.MP3",
+          "at_segment": "hook",
+          "volume": -5
+        }
+      ]
+    },
+    "video": {
+      "gameplay": "assets/gameplay/subway.mp4",
+      "resolution": "1080x1920",
+      "fps": 30,
+      "font": "assets/fonts/KOMIKAX_.ttf",
+      "overlay": {
+        "enabled": false,
+        "type": "none"
+      }
+    },
+    "log": {
+      "created_at": null,
+      "rendered_at": "2026-01-09T02:17:32.974127",
+      "uploaded_at": null,
+      "video_path": "videos\\video_001\\output\\video.mp4"
+    }
+  },
+  "idea_002": {
+    "status": "rendered",
+    "variants_enabled": false,
+    "youtube": {
+      "title": "Time Is Slower for You (This Is Real)",
+      "description": "Your phone, your GPS, even satellites experience time differently. This is relativity in brainrot form. #shorts #science #time",
+      "tags": [
+        "shorts",
+        "time",
+        "relativity",
+        "science",
+        "brainrot"
+      ],
+      "category": "Education"
+    },
+    "script": {
+      "hook": "WAIT, time literally moves slower for you.",
+      "beat": "No, this is not a movie effect.",
+      "lore": "The faster you move, the slower time passes. Satellites must correct this or your GPS would stop working.",
+      "cta": "Subscribe now or stay one timeline behind."
+    },
+    "captions": {
+      "style": "classic",
+      "max_words": 3,
+      "max_chars": 18,
+      "highlight_emphasis": true
+    },
+    "audio": {
+      "music": {
+        "track": "assets/music/bg_loop_01.MP3",
+        "volume": -10,
+        "fade_in": 0.5,
+        "fade_out": 0.5,
+        "duck_under_voice": true
+      },
+      "sfx": [
+        {
+          "file": "assets/sfx/minecraft_damage.mp3",
+          "at_word": "wait",
+          "offset": 0,
+          "volume": 10
+        },
+        {
+          "file": "assets/sfx/riser.MP3",
+          "at_segment": "hook",
+          "volume": -5
+        }
+      ]
+    },
+    "video": {
+      "gameplay": "assets/gameplay/subway.mp4",
+      "resolution": "1080x1920",
+      "fps": 30,
+      "font": "assets/fonts/KOMIKAX_.ttf",
+      "overlay": {
+        "enabled": false,
+        "type": "none"
+      }
+    },
+    "log": {
+      "created_at": null,
+      "rendered_at": "2026-01-09T23:15:00.111044",
+      "uploaded_at": null,
+      "video_path": "videos\\video_002\\output\\video.mp4"
+    }
+  },
+  "idea_003": {
+    "status": "rendered",
+    "variants_enabled": false,
+    "youtube": {
+      "title": "You Never Actually Touch Anything",
+      "description": "Touch is just force. Atoms never make contact. Physics is wild. #shorts #physics #science",
+      "tags": [
+        "shorts",
+        "physics",
+        "touch",
+        "science",
+        "brainrot"
+      ],
+      "category": "Education"
+    },
+    "script": {
+      "hook": "WAIT, you are not touching your phone.",
+      "beat": "Not even right now.",
+      "lore": "Electrons repel each other. What you feel as touch is just force, not physical contact.",
+      "cta": "Subscribe now before reality glitches again."
+    },
+    "captions": {
+      "style": "classic",
+      "max_words": 3,
+      "max_chars": 18,
+      "highlight_emphasis": true
+    },
+    "audio": {
+      "music": {
+        "track": "assets/music/bg_loop_01.MP3",
+        "volume": -10,
+        "fade_in": 0.5,
+        "fade_out": 0.5,
+        "duck_under_voice": true
+      },
+      "sfx": [
+        {
+          "file": "assets/sfx/minecraft_damage.mp3",
+          "at_word": "wait",
+          "offset": 0,
+          "volume": 10
+        },
+        {
+          "file": "assets/sfx/riser.MP3",
+          "at_segment": "hook",
+          "volume": -5
+        }
+      ]
+    },
+    "video": {
+      "gameplay": "assets/gameplay/subway.mp4",
+      "resolution": "1080x1920",
+      "fps": 30,
+      "font": "assets/fonts/KOMIKAX_.ttf",
+      "overlay": {
+        "enabled": false,
+        "type": "none"
+      }
+    },
+    "log": {
+      "created_at": null,
+      "rendered_at": "2026-01-13T13:27:32.548717",
+      "uploaded_at": null,
+      "video_path": "videos\\video_003\\output\\video.mp4"
+    }
+  },
+  "idea_004": {
+    "status": "rendered",
+    "variants_enabled": false,
+    "youtube": {
+      "title": "The Universe Is Expanding (Not Like You Think)",
+      "description": "Galaxies are not flying away. Space itself is stretching. #shorts #space #science",
+      "tags": [
+        "shorts",
+        "space",
+        "cosmology",
+        "science",
+        "brainrot"
+      ],
+      "category": "Education"
+    },
+    "script": {
+      "hook": "WAIT, the universe is expanding right now.",
+      "beat": "Not into something. Everything is just moving apart.",
+      "lore": "Space itself is stretching. Galaxies are not escaping. The map is getting bigger.",
+      "cta": "Subscribe now before the universe patches again."
+    },
+    "captions": {
+      "style": "classic",
+      "max_words": 3,
+      "max_chars": 18,
+      "highlight_emphasis": true
+    },
+    "audio": {
+      "music": {
+        "track": "assets/music/bg_loop_01.MP3",
+        "volume": -10,
+        "fade_in": 0.5,
+        "fade_out": 0.5,
+        "duck_under_voice": true
+      },
+      "sfx": [
+        {
+          "file": "assets/sfx/minecraft_damage.mp3",
+          "at_word": "wait",
+          "offset": 0,
+          "volume": 10
+        },
+        {
+          "file": "assets/sfx/riser.MP3",
+          "at_segment": "hook",
+          "volume": -5
+        }
+      ]
+    },
+    "video": {
+      "gameplay": "assets/gameplay/subway.mp4",
+      "resolution": "1080x1920",
+      "fps": 30,
+      "font": "assets/fonts/KOMIKAX_.ttf",
+      "overlay": {
+        "enabled": false,
+        "type": "none"
+      }
+    },
+    "log": {
+      "created_at": null,
+      "rendered_at": "2026-01-13T13:35:31.495263",
+      "uploaded_at": null,
+      "video_path": "videos\\video_005\\output\\video.mp4"
+    }
+  },
+  "idea_005": {
+    "status": "rendered",
+    "variants_enabled": false,
+    "youtube": {
+      "title": "Your Brain Invented Color",
+      "description": "Color does not exist in reality. Your brain made it up. #shorts #brain #science",
+      "tags": [
+        "shorts",
+        "brain",
+        "perception",
+        "science",
+        "brainrot"
+      ],
+      "category": "Education"
+    },
+    "script": {
+      "hook": "WAIT, color is not real.",
+      "beat": "Your brain is faking it.",
+      "lore": "Objects only reflect wavelengths. Your brain invents color as a visual interface.",
+      "cta": "Subscribe now before your textures disappear."
+    },
+    "captions": {
+      "style": "classic",
+      "max_words": 3,
+      "max_chars": 18,
+      "highlight_emphasis": true
+    },
+    "audio": {
+      "music": {
+        "track": "assets/music/bg_loop_01.MP3",
+        "volume": -10,
+        "fade_in": 0.5,
+        "fade_out": 0.5,
+        "duck_under_voice": true
+      },
+      "sfx": [
+        {
+          "file": "assets/sfx/minecraft_damage.mp3",
+          "at_word": "wait",
+          "offset": 0,
+          "volume": 10
+        },
+        {
+          "file": "assets/sfx/riser.MP3",
+          "at_segment": "hook",
+          "volume": -5
+        }
+      ]
+    },
+    "video": {
+      "gameplay": "assets/gameplay/subway.mp4",
+      "resolution": "1080x1920",
+      "fps": 30,
+      "font": "assets/fonts/KOMIKAX_.ttf",
+      "overlay": {
+        "enabled": false,
+        "type": "none"
+      }
+    },
+    "log": {
+      "created_at": null,
+      "rendered_at": "2026-01-13T13:58:57.885233",
+      "uploaded_at": null,
+      "video_path": "videos\\video_006\\output\\video.mp4"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "music": {
+    "track": "assets/music/bg_loop_01.MP3",
+    "start": 0.0,
+    "volume": -18,
+    "duck_under_voice": true,
+    "fade_in": 0.5,
+    "fade_out": 0.5
+  },
+  "sfx": [
+    {
+      "file": "assets/sfx/minecraft_damage.mp3",
+      "at_word": "WAIT",
+      "offset": -0.05,
+      "volume": -6
+    },
+    {
+      "file": "assets/sfx/riser.MP3",
+      "start": 3.6,
+      "end": 4.2,
+      "volume": -10
+    }
+  ]
+}

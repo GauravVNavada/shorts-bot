@@ -1,0 +1,47 @@
+{
+  "video": {
+    "length_range": [24, 28],
+    "gameplay": "subway"
+  },
+
+  "music": {
+    "asset_id": "bg_loop_01",
+    "volume": 0.08,
+    "mood": "neutral",
+    "energy": "low"
+  },
+
+  "structure": {
+    "hook_duration": 4,
+    "reveal_ratio": 0.68,
+    "cta_duration": 3
+  },
+
+  "audio_events": [
+    {
+      "asset_id": "riser",
+      "position": "pre_reveal",
+      "intent": "tension",
+      "volume": 0.25
+    },
+    {
+      "asset_id": "minecraft_damage",
+      "position": "reveal",
+      "intent": "impact",
+      "volume": 0.3
+    }
+  ],
+
+  "caption_style": {
+    "font": "KOMIKAX_",
+    "case": "upper",
+    "words_per_beat": [1, 3],
+    "position": "upper_center"
+  },
+
+  "cta": {
+    "type": "threat",
+    "position": "end",
+    "text_style": "aggressive"
+  }
+}
