@@ -288,7 +288,12 @@
       "style": "classic",
       "max_words": 3,
       "max_chars": 18,
-      "highlight_emphasis": true
+      "highlight_emphasis": true,
+      "emphasis": {
+        "color": "yellow",
+        "brain": "green",
+        "reality": "red"
+      }
     },
     "audio": {
       "music": {
@@ -324,9 +329,9 @@
     },
     "log": {
       "created_at": null,
-      "rendered_at": "2026-01-13T13:58:57.885233",
+      "rendered_at": "2026-01-18T01:11:35.473202",
       "uploaded_at": null,
-      "video_path": "videos\\video_006\\output\\video.mp4"
+      "video_path": "videos\\video_056\\output\\video.mp4"
     }
   }
 }

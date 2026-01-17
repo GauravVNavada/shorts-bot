@@ -83,10 +83,19 @@ def create_video_job(video_index, idea_key, idea):
     # 4️⃣ Build captions
     print("📝 Building captions...")
     blocks_json = os.path.join(intermediate_dir, "word_blocks.json")
+    ideas_json = "ideas.json"  # path to your main recipe file
+
     subprocess.run(
-        [sys.executable, "captions/build_word_blocks.py", words_json, blocks_json],
+        [
+            sys.executable,
+            "captions/build_word_blocks.py",
+            words_json,
+            ideas_json,
+            blocks_json,
+        ],
         check=True
     )
+
 
     # 5️⃣ Audio post (music + SFX)
     print("🎧 Applying music and SFX...")

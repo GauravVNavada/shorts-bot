@@ -1,155 +1,180 @@
-import subprocess
-import json
 import os
-import textwrap
-import random
+import json
 import sys
+import random
 
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
 
+from moviepy import (
+    VideoFileClip,
+    AudioFileClip,
+    CompositeVideoClip,
+    ImageClip,
+)
+
+# ---------------- CONFIG ----------------
 GAMEPLAY = "assets/gameplay/subway.mp4"
-
 WIDTH = 1080
 HEIGHT = 1920
 FPS = 30
 
-FONT = "assets/fonts/KOMIKAX_.ttf"
+FONT_PATH = "assets/fonts/KOMIKAX_.ttf"
+FONT_SIZE = 96
+
+TEXT_COLOR = "#FFFFFF"
+EMPHASIS_COLOR = "#FFD54F"
+STROKE_COLOR = "#000000"
+STROKE_WIDTH = 4
+
+PAD_X = 40
+PAD_Y = 40
+LINE_GAP = 6
+
+SAFE_TEXT_WIDTH = int(WIDTH * 0.92)  # 🔒 hard safety clamp
 
 
-# ----------------- helpers -----------------
+# ---------------- HELPERS ----------------
 
-def ffmpeg_escape(text: str) -> str:
-    return (
-        text.replace("\\", r"\\")
-            .replace(":", r"\:")
-            .replace("'", r"\'")
-            .replace(",", r"\,")
-    )
-
-
-def wrap_text(text, max_chars=18):
-    return "\n".join(textwrap.wrap(text, max_chars))
-
-
-def get_audio_duration(audio_path):
-    cmd = [
-        "ffprobe", "-v", "error",
-        "-show_entries", "format=duration",
-        "-of", "default=noprint_wrappers=1:nokey=1",
-        audio_path
-    ]
-
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    output = result.stdout.strip()
-
-    if not output:
-        raise RuntimeError(
-            f"❌ Could not read audio duration with ffprobe.\n"
-            f"STDERR: {result.stderr}\n"
-            f"PATH: {audio_path}"
-        )
-
-    return float(output)
-
+def load_blocks(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 def get_video_duration(path):
-    result = subprocess.run(
-        ["ffprobe", "-v", "error", "-show_entries",
-         "format=duration", "-of",
-         "default=noprint_wrappers=1:nokey=1", path],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
+    clip = VideoFileClip(path)
+    dur = clip.duration
+    clip.close()
+    return dur
+
+
+# ---------------- CAPTION CLIP ----------------
+
+def make_caption_clip(words, start, end, do_pop):
+    font = ImageFont.truetype(FONT_PATH, FONT_SIZE)
+
+    dummy = Image.new("RGBA", (10, 10))
+    d = ImageDraw.Draw(dummy)
+
+    full_line = " ".join(w["text"] for w in words)
+    bbox = d.textbbox((0, 0), full_line, font=font, stroke_width=STROKE_WIDTH)
+
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+
+    img = Image.new(
+        "RGBA",
+        (text_w + PAD_X * 2, text_h + PAD_Y * 2),
+        (0, 0, 0, 0),
     )
-    return float(result.stdout.strip())
 
+    draw = ImageDraw.Draw(img)
 
-# ----------------- BASE BLOCKS -----------------
+    x = PAD_X
+    y = PAD_Y
 
-def build_drawtext_filters(blocks):
-    filters = []
+    for token in words:
+        word = token["text"]
+        is_emph = token.get("emphasis", False)
 
-    for block in blocks:
-        raw_text = block["text"]
-        text = ffmpeg_escape(wrap_text(raw_text))
+        color = EMPHASIS_COLOR if is_emph else TEXT_COLOR
 
-        start = block["start"]
-        end = block["end"]
-
-        filters.append(
-            "drawtext="
-            f"text='{text}':"
-            f"fontfile={FONT}:"
-            "fontcolor=white:"
-            "fontsize=96:"
-            "line_spacing=10:"
-            "box=1:"
-            "boxcolor=black@0.55:"
-            "boxborderw=24:"
-            "borderw=2:bordercolor=black:"
-            "x=(w-text_w)/2:"
-            "y=(h*0.50-text_h/2):"
-            f"enable='between(t\\,{start}\\,{end})'"
+        draw.text(
+            (x, y),
+            word + " ",
+            font=font,
+            fill=color,
+            stroke_fill=STROKE_COLOR,
+            stroke_width=STROKE_WIDTH,
         )
 
-    return ",".join(filters)
+        x += font.getlength(word + " ")
+
+    clip = ImageClip(np.array(img))
+
+    # 🔒 FIX: SCALE DOWN IF TOO WIDE (NO REWRAP, NO SPACING CHANGES)
+    if clip.w > SAFE_TEXT_WIDTH:
+        scale = SAFE_TEXT_WIDTH / clip.w
+        clip = clip.resized(scale)
+
+    # ---- POSITION (LOCKED SAFE CENTER) ----
+    def settle_y(t):
+        if t < 0.10:
+            return -2 * (1 - t / 0.10)
+        return 0
+
+    clip = clip.with_position(lambda t: ("center", HEIGHT // 2 + settle_y(t)))
+
+    # ---- POP (SAFE) ----
+    if do_pop:
+        clip = clip.resized(lambda t: 0.85 + min(t / 0.15, 1) * 0.15)
+
+    return clip.with_start(start).with_end(end)
 
 
-# ----------------- RENDER -----------------
+# ---------------- RENDER ----------------
 
 def render_video(audio_path, captions_path, output_path):
-    print("🎞 Rendering video...")
+    print("🎞 Rendering video with MoviePy...")
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    # Load captions
-    with open(captions_path, "r", encoding="utf-8") as f:
-        blocks = json.load(f)
+    blocks = load_blocks(captions_path)
 
-    block_layer = build_drawtext_filters(blocks)
+    audio = AudioFileClip(audio_path)
+    audio_duration = audio.duration
 
-    # Get durations
-    audio_duration = get_audio_duration(audio_path)
     video_duration = get_video_duration(GAMEPLAY)
+    start_time = random.uniform(0, max(0, video_duration - audio_duration))
 
-    max_start = max(0, video_duration - audio_duration)
-    start_time = random.uniform(0, max_start)
-
-    print(f"🎮 Using gameplay from {start_time:.2f}s for {audio_duration:.2f}s")
-
-    vf = (
-        f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=increase,"
-        f"crop={WIDTH}:{HEIGHT},"
-        f"{block_layer}"
+    base_video = (
+        VideoFileClip(GAMEPLAY)
+        .subclipped(start_time, start_time + audio_duration)
+        .resized((WIDTH, HEIGHT))
+        .with_fps(FPS)
+        .with_audio(audio)
     )
 
-    cmd = [
-        "ffmpeg",
-        "-y",
-        "-ss", str(start_time),
-        "-i", GAMEPLAY,
-        "-i", audio_path,
-        "-t", str(audio_duration),
-        "-map", "0:v:0",
-        "-map", "1:a:0",
-        "-vf", vf,
-        "-r", str(FPS),
-        "-c:v", "libx264",
-        "-c:a", "aac",
-        "-b:a", "192k",
-        "-pix_fmt", "yuv420p",
-        output_path
-    ]
+    caption_clips = []
+    prev_end = None
 
-    subprocess.run(cmd, check=True)
+    for block in blocks:
+        start = float(block["start"])
+        end = float(block["end"])
+        words = block["words"]
+
+        do_pop = True
+        if prev_end is not None and start - prev_end < 0.30:
+            do_pop = False
+
+        caption_clips.append(
+            make_caption_clip(words, start, end, do_pop)
+        )
+
+        prev_end = end
+
+    final = CompositeVideoClip(
+        [base_video] + caption_clips,
+        size=(WIDTH, HEIGHT),
+    )
+
+    final.write_videofile(
+        output_path,
+        codec="libx264",
+        audio_codec="aac",
+        fps=FPS,
+        threads=4,
+        preset="medium",
+    )
+
+    final.close()
+    audio.close()
     print("✅ Video rendered:", output_path)
 
+
+# ---------------- ENTRY ----------------
 
 if __name__ == "__main__":
     if len(sys.argv) < 4:
         print("Usage: python render.py <audio_path> <captions_path> <output_path>")
         sys.exit(1)
 
-    audio_path = sys.argv[1]
-    captions_path = sys.argv[2]
-    output_path = sys.argv[3]
-
-    render_video(audio_path, captions_path, output_path)
+    render_video(sys.argv[1], sys.argv[2], sys.argv[3])
